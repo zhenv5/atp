@@ -10,7 +10,7 @@
 
 ## Optional Packages
 
-Some packages for matrix factorization are optional. And you can use your own package to do the matrix factorization.
+Some packages for matrix factorization are optional. And you can use your own package to do the matrix factorization or simply use SVD (supported by numpy and scipy) to generate the embeddings.
 
 * sklearn
 * nimfa
@@ -60,7 +60,7 @@ Parameters of ```main_atp.py```:
 * ```--id_mapping```: 'Making Node ID start with 0', action='store_true'
 * ```--using_GPU```: 'Using GPU to do the matrix factorization (cumf/cumf_ccd)', action='store_true'
 * ```--dense_M```: 'Dense representation of M', action='store_true'
-* ```--using_SVD```: 'Using SVD to generate embeddings from M'
+* ```--using_SVD```: 'Using SVD to generate embeddings from M', action='store_true'
 
 Output:
 
@@ -104,16 +104,16 @@ The input ```matrix``` is a dense matrix, so we have to specify ```--dense_M``` 
 
 However, when we use ```libpmf``` to do the matrix factorization, the input matrix should use a sparse representation, it's not necessary for us to specify ```--dense_M```.
 
-### Using ```M``` as an input for other applications
-
-```M``` is the matrix which incorporates graph hierarchy and reachability. It's saved as ```train_ranking_differences.dat```.
-You can use ```M``` as an input for other applications. 
-
 
 ## Using SVD to generate embeddings
 
 * Using dense representation of ```M```: ```python main_atp.py --dag dataset/demo_DAG.edges --rank 2 --using_SVD --dense_M```
 * Using sparse representation of ```M```: ```python main_atp.py --dag dataset/demo_DAG.edges --rank 2 --using_SVD```
+
+## Using ```M``` as an input for other applications
+
+```M``` is the matrix which incorporates graph hierarchy and reachability. It's saved as ```train_ranking_differences.dat```.
+You can use ```M``` as an input for other applications. 
 
 
 
