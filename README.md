@@ -48,6 +48,7 @@ Parameters of ```main_atp.py```:
 * ```--strategy```: strategies to bulid hierarchical matrix: constant, linear, harmonic, ln (log)	
 * ```--id_mapping```: 'Making Node ID start with 0', action='store_true'
 * ```--using_GPU```: 'Using GPU to do the matrix factorization (cumf/cumf_ccd)', action='store_true'
+* ```--dense_M```: 'Dense representation of M', action='store_true'
 
 Output:
 
@@ -58,15 +59,38 @@ Some examples:
 
 Suppose we use CPU based matrix factorization to generate corresponding embeddigns, and nodes of ```demo_DAG.edges``` start with index 0, we run:
 
-* ```python main_atp.py --dag dataset/demo_DAG.edges --rank 2 --strategy ln```
+* ```python main_atp.py --dag dataset/demo_DAG.edges --rank 2 --strategy ln --dense_M```
 
 We specify ```--id_mapping```, if nodes' id are not integers or do not start with index 0, For example, we run:
 
-* ```python main_atp.py --dag dataset/demo_DAG_String.edges --rank 2 --strategy ln --id_mapping```
+* ```python main_atp.py --dag dataset/demo_DAG_String.edges --rank 2 --strategy ln --id_mapping --dense_M```
 
 If we would like to do some GPU based matrix factorization, we have to specify ```--using_GPU```:
 
 * ```python main_atp.py --dag dataset/demo_DAG_String.edges --rank 2 --strategy ln --id_mapping --using_GPU```
+
+Check [cumf_ccd](https://github.com/zhenv5/atp/tree/master/cumf/cumf_ccd) for more details about matrix factorization on GPU. We use ```prepare_cumf_data.py``` and ```load_cumf_ccd_matrices.py``` to prepare the inputs for ```cumf_ccd``` and process the outputs of ```cumf_ccd``` respectively.
+
+## Using other Matrix Factorization Algorithms
+
+```ATP``` can use other matrix factorization based methods easily. 
+
+Simply modify ```graph_embedding.py``` to add new matrix factorization based methods.
+
+For example:
+
+We can use ```NMF``` from ```sklearn``` to generate corresponding embeddings:
+
+```
+from sklearn.decomposition import NMF
+model = NMF(n_components= rank, init='random', random_state=0)
+W = model.fit_transform(matrix)
+H = model.components_
+```
+
+The input ```matrix``` is a dense matrix, so we have to specify ```--dense_M``` when we run ```main_atp.py```.
+
+However, when we use ```libpmf``` to do the matrix factorization, the input matrix should use a sparse representation, it's not necessary for us to specify ```--dense_M```.
 
 
 ## Datasets
