@@ -1,0 +1,53 @@
+Requirement
+===========
+	- numpy
+	- scipy.sparse
+
+Build
+=====
+	type `make' in this directory
+
+
+A Simple Example
+================
+	Within the directoy python/, open a python shell.
+
+	>>> import libpmf
+	>>> import scipy.sparse as sparse
+	>>> A = sparse.rand(100,100,0.3)
+	>>> model = libpmf.train(A, '-k 10 -l 0.1')
+	starts!
+	m 100 n 100 k 10 nnz 3000
+	Wall-time: 0.0212269 secs
+	>>> model.keys() # model is a dictionary
+	['H', 'W']
+
+Usage
+=====
+	We provide two interface functions: "libpmf.train" and "libpmf.train_coo". 
+	In the python/ipython shell, you can call run both functions with a empty argument list 
+    to get the detailed usage. 
+
+ - model = libpmf.train(A, param_str="", zero_as_missing = True)
+    A: a numpy array or a scipy.sparse.matrix
+    zero_as_missing: whether treat zero as missing (Default True)
+
+ - model = libpmf.train_coo(row_idx, col_idx, obs_val, m, n, param_str = '')
+	(row_idx, col_idx, obs_val) is the coordinate list representation for the known 
+    entries in the target matrix.
+
+	 - param.str: the detailed options you can use
+		-s type : set type of solver (default 0)
+			 0 -- CCDR1 with fundec stopping condition
+		-k rank : set the rank (default 10)
+		-n threads : set the number of threads (default 4)
+		-l lambda : set the regularization parameter lambda (default 0.1)
+		-t max_iter: set the number of iterations (default 5)
+		-T max_iter: set the number of inner iterations used in CCDR1 (default 5)
+		-e epsilon : set inner termination criterion epsilon of CCDR1 (default 1e-3)
+		-q verbose: show information or not (default 0)
+		-N do_nmf: do nmf (default 0)
+
+  - returned model:
+	`model' is a dictionary with two entries: model['W'] and model['H']. You can use
+     numpy.dot(model['W'], model['H'].T) to compute the approximated matrix. 

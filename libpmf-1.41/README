@@ -1,0 +1,53 @@
+
+Platform
+========
+    Unix systems with g++.
+
+Installation 
+============
+    $ make
+
+Quick Start
+===========
+
+    $ ./omp-pmf-train toy-example model
+    $ ./omp-pmf-predict toy-example/test.ratings model predicted_result
+
+Data format
+===========
+    The input format of the training data is a directory containing 
+    a file called "meta", a file storing training ratings, and a file
+    storing test ratings. 
+
+    "meta" file contains three lines:
+        1st: m n
+        2nd: num_training_ratings training_file_name
+        3rd: num_test_ratings test_file_name
+
+    See toy-example/ for a concrete example.
+
+Usages
+======
+    Run each program without arguments to show the detailed usage:
+
+    $ ./omp-pmf-train
+    Usage: omp-pmf-train [options] data_dir [model_filename]
+    options:
+        -s type : set type of solver (default 0)
+             0 -- CCDR1 with fundec stopping condition
+                 -k rank : set the rank (default 10)
+        -n threads : set the number of threads (default 4)
+        -l lambda : set the regularization parameter lambda (default 0.1)
+        -t max_iter: set the number of iterations (default 5)
+        -T max_iter: set the number of inner iterations used in CCDR1 (default 5)
+        -e epsilon : set inner termination criterion epsilon of CCDR1 (default 1e-3)
+        -p do_predict: do prediction or not (default 0)
+        -q verbose: show information or not (default 0)
+        -N do_nmf: do nmf (default 0)
+
+    $ ./omp-pmf-predict:
+    Usage: omp-pmf-predict test_file model output_file
+
+
+For any questions and comments, please send your email to
+rofuyu AT cs dot utexas dot edu

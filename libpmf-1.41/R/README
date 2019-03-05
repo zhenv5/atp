@@ -1,0 +1,52 @@
+Build
+=====
+The above command will automatically build and load the packege.
+    > source("path_to_libpmf.R");
+
+A Simple Example
+================
+
+	> source('libpmf.R')
+	> A = matrix(rnorm(100), c(10, 10));
+	> model = pmf.train.matrix(A, '-k 20 -l 0.1')
+	starts!
+	m 10 n 10 k 20 nnz 100
+	Wall-time: 0.030828 secs
+	> str(model)
+	List of 2
+	 $ W: num [1:10, 1:20] 0.571 0.344 0.847 0.407 -0.112 ...
+	 $ H: num [1:10, 1:20] -0.159 0.812 0.811 -0.349 0.437 ...
+
+Usage
+=====
+	We provide two interface functions: "pmf.train.matrix" and "pmf.train.coo". 
+	In the R shell, you can call these two functions with a empty argument list 
+    to get the detailed usage. 
+
+ - model = pmf.train.matrix(mat, param.str='', zero_as_missing = TRUE)
+	The target matrix `mat' is a dense matrix. We treat nofinite entries (and zero entries)
+    of mat as missing entries and learn a low rank factorization. 
+
+ - model = pmf.train.coo(row.idx, col.idx, obs.val, param.str='')
+	(row.idx, col.idx, obs.val) is the coordinate list representation for the known 
+    entries in the target matrix.
+
+	 - param.str: the detailed options you can use
+		-s type : set type of solver (default 0)
+			 0 -- CCDR1 with fundec stopping condition
+		-k rank : set the rank (default 10)
+		-n threads : set the number of threads (default 4)
+		-l lambda : set the regularization parameter lambda (default 0.1)
+		-t max_iter: set the number of iterations (default 5)
+		-T max_iter: set the number of inner iterations used in CCDR1 (default 5)
+		-e epsilon : set inner termination criterion epsilon of CCDR1 (default 1e-3)
+		-q verbose: show information or not (default 0)
+		-N do_nmf: do nmf (default 0)
+
+
+  - returned model:
+	`model' is a list with two entries: model$W and model$H. You can use
+     model$W %*% t(model%H) to compute the approximated matrix. 
+
+
+ 

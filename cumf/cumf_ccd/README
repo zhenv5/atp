@@ -1,0 +1,44 @@
+## How to build
+
+make clean && make
+
+## How to run
+
+$./ccdp_gpu toy_example toy_example/test.ratings
+(more examples below)
+
+##Input format
+
+The input should be in binary format (See toy_example directory
+for details). 
+
+"meta_modified_all" has the name of the input files.
+
+Details:
+
+line 1 has #rows #cols
+line 2 has nnz in training dataset
+line 3 to 11 has file names
+line 4 has nnz in test dataset and test filename
+
+
+## Arguments
+
+    $ ./ccdp_gpu [options] [input file directoty containing meta_modified_all] [test file path]
+
+    options:
+
+        -k rank/feature : set the rank (default 10)
+        -l lambda : set the regularization parameter lambda (default 0.05)
+        -a tile size: set tile size for input matrix R (default 499999999)
+        -b tile size: set tile size for input matrix R Transpose (default 499999999)
+        -t max_iter: number of iterations (default 5)
+        -T max_iter: number of inner iterations (default 1)
+
+
+## Examples:
+To run Netflix:
+./ccdp_gpu -T 1 -a 100000 -b 100000 -l .058 -k 40 -t 10 ../Netflix ../Netflix/netflix_mme_wo_header
+
+To run Yahoo Music:
+$./ccdp_gpu -T 1 -a 100000 -b 100000 -l 1.2 -k 40 -t 10 ../Yahoo_music ../Yahoo_music/test.txt

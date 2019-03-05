@@ -1,0 +1,46 @@
+Requirement
+===========
+	- Matlab :)
+
+Build
+=====
+	Open Matlab under this directory and type `make,' 
+	the mex file for your platform will be generated.
+
+
+A Simple Example
+================
+	Within the directoy python/, open a python shell.
+
+	>> A = sprand(100,100,0.3);
+	>> [W, H] = pmf_train(A, '-k 10 -l 0.1');
+	starts!
+	m 100 n 100 k 10 nnz 3000
+	Wall-time: 0.0212269 secs
+	>> % W*H' approximate H
+
+Usage
+=====
+	The interface function is "pmf_train". 
+	In the Matlab shell, you can call type "pmf_train" to get the detailed usage. 
+
+
+	 [W H] = pmf_train(R, W, H [, 'pmf_options'])
+	 [W H] = pmf_train(R, [, 'pmf_options'])
+	     R is an m-by-n sparse double matrix
+	     W is an m-by-k dense double matrix
+	     H is an n-by-k dense double matrix
+		 If W and H are given, they will be treated as the initial values,
+		 and "rank" will equal to size(W,2).
+	options:\n"
+	    -s type : set type of solver (default 0)
+	    	 0 -- CCDR1 with fundec stopping condition
+	    -k rank : set the rank (default 10)
+	    -n threads : set the number of threads (default 4)
+	    -l lambda : set the regularization parameter lambda (default 0.1)
+	    -t max_iter: set the number of iterations (default 5)
+	    -T max_iter: set the number of inner iterations used in CCDR1 (default 5)
+	    -e epsilon : set inner termination criterion epsilon of CCDR1 (default 1e-3)
+	    -q verbose: show information or not (default 0)
+	    -N do_nmf: do nmf (default 0)
+
