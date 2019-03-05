@@ -1,0 +1,9 @@
+#PBS -N osc_gpu
+#PBS -l walltime=00:25:00
+#PBS -l nodes=1:ppn=12:gpus=1:default
+#PBS -l mem=32GB
+#PBS -j oe
+module load cuda
+source .bashrc
+cd ~/Codes/atp
+python main_atp.py --dag dataset/gnm_500_5000_DAG.edges --rank 32 --strategy ln  --using_GPU

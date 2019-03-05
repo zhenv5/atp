@@ -81,7 +81,8 @@ There are three different types of datasets used in our paper:
 
 If you use this code, please consider to cite ATP:
 
-> @article{DBLP:journals/corr/abs-1811-00839,
+```
+@article{DBLP:journals/corr/abs-1811-00839,
   author    = {Jiankai Sun and
                Bortik Bandyopadhyay and
                Armin Bashizade and
@@ -99,6 +100,7 @@ If you use this code, please consider to cite ATP:
   biburl    = {https://dblp.org/rec/bib/journals/corr/abs-1811-00839},
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
+```
 
 Download as ```bib``` file: [https://dblp.uni-trier.de/rec/bibtex/journals/corr/abs-1811-00839](https://dblp.uni-trier.de/rec/bibtex/journals/corr/abs-1811-00839)
 
