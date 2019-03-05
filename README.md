@@ -36,11 +36,16 @@ If the input directed graph is not a directed acyclic graph (DAG), we should del
 
 Corresponding code is availabe at: [breaking_cycles_in_noisy_hierarchies](https://github.com/zhenv5/breaking_cycles_in_noisy_hierarchies)
 
-Then use ```remove_cycle_edges_to_DAGs.py``` to save the corresponding DAG to a file.
+Above code will save the edges which should be deleted to break cycles in a file. We then use ```remove_cycle_edges_to_DAGs.py``` to save the corresponding DAG to a file.
 
 For example, run:
 
 * ```python remove_cycle_edges_to_DAGs.py --original_graph dataset/demo.edges --deleted_edges dataset/demo_deleted_edges.edges```
+
+Input:
+
+* ```--original_graph dataset/demo.edges```: original graph with cycles
+* ```--deleted_edges dataset/demo_deleted_edges.edges```: edges should be deleted to break cycles
 
 Corresponding DAG is saved at:
 
